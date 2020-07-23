@@ -1,2 +1,28 @@
-# simpleBackTrade, a backtrading set up for the 3 day high low method, reliant on pandas and yfinance
-# Assets.csv, could be manipulated as is or turned into a txt file and eddited 
+# 3-Day Hi-Low Method Implementation 
+
+Implemented the aggresive version of Alvarez's method, allowing variebility in:
+- ETF funds being tracked 
+- Bulk of cash dedicated to each trade
+
+# Getting Started
+- Download DataFetch.py, BackTest.pu, and assets.csv into the same folder
+- Run DataFetch.py, then you can play with BackTest.py
+
+# Built With
+- **The environment:** [PyCharm IDE](https://www.jetbrains.com/pycharm/)
+- **Data Processing:** [Pandas](https://pandas.pydata.org/), and [yfinance](https://pypi.org/project/yfinance/) 
+- **Education:** [High Probability ETF Trading: 7 Professional Strategies To Improve Your ETF Trading](https://www.amazon.ca/High-Probability-ETF-Trading-Professional/dp/0615297412/ref=sr_1_3?dchild=1&keywords=alvarez+trading+7&qid=1595478172&sr=8-3)
+
+# Challenges
+The most difficult part of this project was getting a grip with reading, writing, and manipulating dataFrames.
+
+# Next Steps For Improvement
+- Track more assets
+- Add the shorting strategy 
+- Track more micro data for each ETF 
+
+# Author
+- **Bamdad Shamaei** [Github](https://github.com/Dedlipid/)
+
+# License
+- This project is licensed under the MIT License, see the [LICENSE.txt](https://github.com/rikardsaqe/Movie-Recommendation-Tools/blob/master/LICENSE) file for details
