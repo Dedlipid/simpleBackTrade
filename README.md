@@ -5,7 +5,7 @@ Implemented the aggresive version of Alvarez's method, allowing variebility in:
 - Bulk of cash dedicated to each trade
 
 # Getting Started
-- Download DataFetch.py, BackTest.pu, and assets.csv into the same folder
+- Download DataFetch.py, BackTest.py, and assets.csv into the same folder
 - Run DataFetch.py, then you can play with BackTest.py
 
 # Built With
