@@ -1,6 +1,6 @@
 # 3-Day Hi-Low Method Implementation 
 
-Implemented the aggresive version of [Alvarez's](https://www.amazon.ca/High-Probability-ETF-Trading-Professional/dp/0615297412/ref=sr_1_3?dchild=1&keywords=alvarez+trading+7&qid=1595478172&sr=8-3) method getting a 10% return on the past 30 days, and 30% return on past 5 years, allowing variability in:
+Implemented the aggresive version of [Alvarez's](https://www.amazon.ca/High-Probability-ETF-Trading-Professional/dp/0615297412/ref=sr_1_3?dchild=1&keywords=alvarez+trading+7&qid=1595478172&sr=8-3) method getting a 10% return over most 30 day intervals, and around 30% return over the last 5 year, allowing variability in:
 - ETF funds being tracked 
 - Bulk of cash dedicated to each trade
 
