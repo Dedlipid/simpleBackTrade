@@ -5,13 +5,13 @@ Gets and updates data of tracked assets, which are kept in assets.csv
 As of now, assets in assets.csv have to be initialized or removed by hand
 """
 T = pd.read_csv("assets.csv", index_col="index")
-def I():
+def I():#loop through the assests and save their histories as csv's, with the asset.csv naming convention
     for i in range(len(T["Assets"])):
         name = T["Assets"][i] + ".csv"
         temp = yf.download(T.at[i,"Assets"],period="5y").to_csv(name)
-    return ("DataFetched is done")
 
-# Date,Open,High,Low,Close,Adj Close,Volume
+# Date,Open,High,Low,Close,Adj Close,Volume(order of the csv columns)
+
 def STA(n,data):
     s = 0.0
     for i in range(5):
@@ -23,7 +23,6 @@ def LTA(n,data):
     for i in range(200):
         s += data[n-i-1][3]
     return s/200
-
 
 def HV(n,data):
     return data[n-2][1] >= data[n-1][1] >= data[n][1]
@@ -47,7 +46,8 @@ def J():
         temp["HV"] = hv
         temp["LV"] = lv
         temp.to_csv(T["Assets"][j] + "_USE" + ".csv")
-        print(j,"/20")
+        print(str(j+1) + "/"+ str(len(T["Assets"])))
+    return ("DataFetched is done")
 
 
 
