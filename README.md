@@ -1,6 +1,6 @@
 # 3-Day Hi-Low Method Implementation 
 
-Implemented the aggresive version of Alvarez's method, allowing variebility in:
+Implemented the aggresive version of [Alvarez]'s(https://www.amazon.ca/High-Probability-ETF-Trading-Professional/dp/0615297412/ref=sr_1_3?dchild=1&keywords=alvarez+trading+7&qid=1595478172&sr=8-3) method getting a 10-30% return depending on the time frame, allowing variebility in:
 - ETF funds being tracked 
 - Bulk of cash dedicated to each trade
 
