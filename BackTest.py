@@ -1,9 +1,9 @@
 import pandas as pd
 T = pd.read_csv("assets.csv",index_col="index")
 T["last_buy"] = [0]*len(T["Assets"])
-def K(C,agres,k):
-    cash_total = C #starting cash 
-    V = cash_total*k #amount of cash available per trade
+def K():
+    cash_total = 10000 #starting cash 
+    V = cash_total*(0.4) #amount of cash available per trade
     for i in range(len(T["Assets"])): 
         temp = pd.read_csv(T["Assets"][i] + "_USE.csv", index_col="Date") #load up individual ETF histories
         for j in range(200, len(temp["Open"])): #has to start at 200, due to 200 day moving average
@@ -13,7 +13,7 @@ def K(C,agres,k):
                 if temp["Close"][j] >= temp["STA"][j]:
                     cash_total += temp["Close"][j]*T.iat[i, 1]
                     T.iat[i, 1] = 0
-                if temp["Close"][j] <= T.iat[i, 2] and agres: #buys a second unit if price falls under initaill buy in, can be commented our for less risky implemntation
+                if temp["Close"][j] <= T.iat[i, 2] and True: #buys a second unit if price falls under initaill buy in, can be commented our for less risky implemntation
                     if cash_total >= temp["Close"][j] * q: #checks to buy enough cash is available 
                         cash_total -= temp["Close"][j] * q #this whole block can be commented out for a less aggressive version of the strategy
                         T.iat[i, 1] += q
@@ -30,6 +30,5 @@ def K(C,agres,k):
     #print(T) #can be uncommented to see if theres any postions you still have'nt exit on
 
 if __name__ == '__main__':
-    i = input("Enter : Inital_Cash, Agression(bool), Trading_Fraction(0<x<1)").split
-    K(int(i[0]),bool(i[1]),float(i[2]))
+    K()
     
