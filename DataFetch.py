@@ -52,4 +52,5 @@ def J():
 
 
 if __name__ == "__main__":
-    print(T["Assets"].values)
+    I()
+    J()
