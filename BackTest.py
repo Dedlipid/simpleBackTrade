@@ -1,34 +1,46 @@
 import pandas as pd
 T = pd.read_csv("assets.csv",index_col="index")
-T["last_buy"] = [0]*len(T["Assets"])
-def K():
-    cash_total = 10000 #starting cash 
-    V = cash_total*(0.4) #amount of cash available per trade
-    for i in range(len(T["Assets"])): 
-        temp = pd.read_csv(T["Assets"][i] + "_USE.csv", index_col="Date") #load up individual ETF histories
-        for j in range(200, len(temp["Open"])): #has to start at 200, due to 200 day moving average
-            # Date,Open,High,Low,Close,Adj Close,Volume,STA,LTA,HV,LV
-            q = round(V / temp["Close"][j]-0.5) #the 0.5 is to make round into floor, q determines how many shares we try to buy
-            if T.iat[i, 1] > 0 : #satisfied if the closing price is higher then the 5-day average 
-                if temp["Close"][j] >= temp["STA"][j]:
-                    cash_total += temp["Close"][j]*T.iat[i, 1]
-                    T.iat[i, 1] = 0
-                if temp["Close"][j] <= T.iat[i, 2] and True: #buys a second unit if price falls under initaill buy in, can be commented our for less risky implemntation
-                    if cash_total >= temp["Close"][j] * q: #checks to buy enough cash is available 
-                        cash_total -= temp["Close"][j] * q #this whole block can be commented out for a less aggressive version of the strategy
-                        T.iat[i, 1] += q
+T["last_buy"] = T["last_price"] = 0#Ass_Name, Quan, Last_buy,last_price
+C_0 = [15000]
+cash_total = C_0[0]
+cash_add = 0
+cash_out = 0
+V = cash_total/2
+for i in range(len(T["Assets"])):
+    temp = pd.read_csv(T["Assets"][i] + ".csv", index_col="Date")
+    his = len(temp["Open"])
+    if cash_total < C_0[0]/5 and cash_out >= max(C_0[0]/4,2500) and True:
+        cash_total += max(C_0[0]/4,2500)
+        cash_out -= max(C_0[0]/4,2500)
+    if cash_total > C_0[0]*1.1 and True:
+        cash_out = C_0[0]*0.1
+        cash_total -= cash_out
+    for j in range(his-250, his-5):  ####RUNNING PERIOD
+        # Date,Open,High,Low,Close,Adj Close,Volume,STA,LTA,HV,LV
+        q = round(V/temp["Close"][j])-1
+        T.iat[i,3] = temp["Close"][j]
+        if T.iat[i, 1] > 0: #if any of the asset is owned, we check whether to buy or sell
+            if temp["Close"][j] >= temp["STA"][j]:#sells if the price is higher then
+                cash_total += temp["Close"][j]*T.iat[i, 1]# the 5 day average
+                T.iat[i, 1] = 0
+            if temp["Close"][j] <= T.iat[i, 2] and True:#if true the risky strategy
+                if cash_total >= temp["Close"][j] * q:  #will buy annadditional unnit
+                    cash_total -= temp["Close"][j] * q
+                    T.iat[i, 1] += q
 
-            if temp["HV"][j] and temp["LV"][j]: #checks to see the highs and lows have fallen for two consecutive days
-                if temp["STA"][j] >= temp["Close"][j] >= temp["LTA"][j]: #checks to see if the 5 day average > closing price > 200 day average 
-                    if cash_total >= temp["Close"][j]*q: #buys into the position if enough cash is available and the conditions are met
-                        cash_total -= temp["Close"][j]*q #the cash is removed and the shares are added
-                        T.iat[i, 1] += q
-                        T.iat[i, 2] = temp["Close"][j]
+        if temp["HV"][j] and temp["LV"][j]:#if the high and low have fallen for two consecutive days
+            if temp["STA"][j] >= temp["Close"][j] >= temp["LTA"][j]:#if the price is higher then the
+                if cash_total >= temp["Close"][j]*q: #long term but bellow the short term average
+                    cash_total -= temp["Close"][j]*q
+                    T.iat[i, 1] += q
+                    T.iat[i, 2] = temp["Close"][j]
+T["V"] = T["Quant"]*T["last_price"]
+assets = T["V"].sum()
 
-    print(cash_total) #cash you would have at the end of your fund histories, make sure they end on the same day
 
-    #print(T) #can be uncommented to see if theres any postions you still have'nt exit on
+
 
 if __name__ == '__main__':
-    K()
-    
+    print(f'cash={cash_total + cash_out},'
+          f'assets={assets},'
+          f'profit={(cash_total + cash_out + assets - cash_add - C_0[0]) / C_0[0]}')
