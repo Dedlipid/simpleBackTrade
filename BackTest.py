@@ -1,26 +1,26 @@
 import pandas as pd
 T = pd.read_csv("assets.csv")
 T["Quantity"] = T["last_buy"] = T["last_price"] = 0  # Ass_Name, Quantity, Last_buy,last_price
-C_0 = [15000]
-cash_total = C_0[0]
+C_0 = 15000
+cash_total = C_0
 cash_add = 0
 cash_out = 0
-V = cash_total/2
 for i in range(len(T["Assets"])):
 
     temp = pd.read_csv(T["Assets"][i] + ".csv", index_col="Date")
     his = len(temp["Open"])
 
-    if cash_total < C_0[0]/5 and cash_out >= max(C_0[0]/4, 2500) and True:
-        cash_total += max(C_0[0]/4, 2500)
-        cash_out -= max(C_0[0]/4, 2500)
+    if cash_total < C_0/5 and cash_out >= max(C_0/4, 2500) and False:
+        cash_total += max(C_0/4, 2500)
+        cash_out -= max(C_0/4, 2500)
 
-    if cash_total > C_0[0]*1.1 and True:
-        cash_out = C_0[0]*0.1
+    if cash_total > C_0*1.1 and False:
+        cash_out = C_0*0.1
         cash_total -= cash_out
 
     for j in range(his-250, his):  # RUNNING PERIOD
         # Date,Open,High,Low,Close,Adj Close,Volume,STA,LTA,HV,LV
+        V = cash_total/2
         q = max(round(V/temp["Close"][j])-1, 0)
         T.iat[i, 3] = temp["Close"][j]
 
@@ -45,4 +45,4 @@ assets = T["V"].sum()
 if __name__ == '__main__':
     print(f'cash={cash_total + cash_out},'
           f'assets={assets},'
-          f'profit={(cash_total + cash_out + assets - cash_add - C_0[0]) / C_0[0]}')
+          f'profit={(cash_total + cash_out + assets - cash_add - C_0) / C_0]}')
