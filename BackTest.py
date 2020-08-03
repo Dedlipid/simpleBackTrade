@@ -5,6 +5,7 @@ C_0 = 15000
 cash_total = C_0
 cash_add = 0
 cash_out = 0
+days = 100
 for i in range(len(T["Assets"])):
 
     temp = pd.read_csv(T["Assets"][i] + ".csv", index_col="Date")
@@ -18,7 +19,7 @@ for i in range(len(T["Assets"])):
         cash_out = C_0*0.1
         cash_total -= cash_out
 
-    for j in range(his-250, his):  # RUNNING PERIOD
+    for j in range(his-days, his):  # RUNNING PERIOD
         # Date,Open,High,Low,Close,Adj Close,Volume,STA,LTA,HV,LV
         V = cash_total/5
         q = max(round(V/temp["Close"][j])-1, 0)
