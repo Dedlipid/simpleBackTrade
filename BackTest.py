@@ -1,11 +1,11 @@
 import pandas as pd
 T = pd.read_csv("assets.csv")
 T["Quantity"] = T["last_buy"] = T["last_price"] = 0  # Ass_Name, Quantity, Last_buy,last_price
-C_0 = 15000
+C_0 = 15000  # starting cash
 cash_total = C_0
 cash_add = 0
 cash_out = 0
-days = 100
+days = 100  # computation period
 for i in range(len(T["Assets"])):
 
     temp = pd.read_csv(T["Assets"][i] + ".csv", index_col="Date")
