@@ -20,6 +20,7 @@ The most difficult part of this project was getting a grip with reading, writing
 - Track more assets
 - Add the shorting strategy 
 - Track more micro data for each ETF 
+- Get a better grip on DataFrame methods like .apply()
 
 # Author
 - **Bamdad Shamaei** [Github](https://github.com/Dedlipid/)
