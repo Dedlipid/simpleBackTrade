@@ -20,7 +20,7 @@ for i in range(len(T["Assets"])):
 
     for j in range(his-250, his):  # RUNNING PERIOD
         # Date,Open,High,Low,Close,Adj Close,Volume,STA,LTA,HV,LV
-        V = cash_total/2
+        V = cash_total/5
         q = max(round(V/temp["Close"][j])-1, 0)
         T.iat[i, 3] = temp["Close"][j]
 
