@@ -1,3 +1,5 @@
+"""Any piece that isn't commented isn't part of the "naive", implementation and can be ignored
+"""
 import pandas as pd
 T = pd.read_csv("assets.csv")
 T["Quantity"] = T["last_buy"] = T["last_price"] = 0  # Ass_Name, Quantity, Last_buy,last_price
